@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-import Login from './Login';
+import Login from './components/Login';
 import Cadastro from "./Cadastro";
-import Filmes from './Filmes';
-import EditaFilme from './EditaFilme';
+import CadastrarA from './CadastrarA';
+import EditarAlimento from './EditarAlimento';
 
 const theme = createTheme({
-  palette: {
+  /*palette: {
     mode: 'light',
     primary: {
       main: '#ff9100',
@@ -45,7 +45,7 @@ const theme = createTheme({
       main: '#0ebd3a',
     },
     divider: '#5109b3',
-  }
+  }*/
 });
 
 const router = createBrowserRouter([
@@ -62,12 +62,12 @@ const router = createBrowserRouter([
     element: <Cadastro />
   },
   {
-    path: "/filmes",
-    element: <Filmes />
+    path: "/CadastrarAlimento",
+    element: <CadastrarA />
   },
   {
     path: "/edicao/:id",
-    element: <EditaFilme />
+    element: <EditarAlimento />
   }
 ]);
 

@@ -7,6 +7,8 @@ import { useNavigate, json } from 'react-router-dom';
 
 function Login() {
 
+    document.body.style.backgroundColor = "Black";
+
   const [ email, setEmail ] = useState( "" );
   const [ senha, setSenha ] = useState( "" );
   const [ lembrar, setLembrar ] = useState( false );
@@ -14,8 +16,6 @@ function Login() {
   const [ erro, setErro ] = useState( false );
   const navigate = useNavigate();
 
-
-    /*  */
   useEffect( () => {
 
     if( login ) {
@@ -60,7 +60,7 @@ function Login() {
         <Box 
         sx={{ 
             mt: 10,
-            backgroundColor: "#EDEDED",
+            backgroundColor: "#A800FF",
             padding: "30px",
             borderRadius: "10px",
             display: "flex",
@@ -68,7 +68,7 @@ function Login() {
             alignItems: "center"
         }}
         >
-            <Typography component="h1" variant='h4'>Entrar</Typography>
+            <Typography component="h1" variant='h4' sx={{color:"#ffffff"}}>Entrar</Typography>
             { erro && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Revise seus dados e tente novamente</Alert> ) }
             <Box component="form" onSubmit={Autenticar}>
                 <TextField 
@@ -79,6 +79,11 @@ function Login() {
                   value={email}
                   onChange={ (e) => setEmail( e.target.value ) }
                   fullWidth
+                  sx={{
+                    background:"#FFFFFF",
+                    borderRadius:"10px",
+                    color:"#000"
+                  }}
                 />
                 <TextField 
                   type="password" 
@@ -88,18 +93,23 @@ function Login() {
                   fullWidth
                   value={senha}
                   onChange={ (e) => setSenha( e.target.value ) }
+                  sx={{
+                    background:"#FFFFFF",
+                    borderRadius:"10px",
+                    color:"#000"
+                  }}
                 />
                 <FormControlLabel
                     control={ <Checkbox value={lembrar} name="lembrar" onChange={(e) => setLembrar( !lembrar ) } />}
                     label="Lembrar-me"
                 />
-                <Button type="submit" variant="contained" fullWidth sx={ { mt: 2, mb: 2 }} size="large">Login</Button>
+                <Button type="submit" variant="contained" fullWidth sx={ { mt: 2, mb: 2, borderRadius:"10px", color:"#fff", background:"#000" }} size="large">Login</Button>
                 <Grid container>
                     <Grid item xs>
                         Esqueci a senha
                     </Grid>
                     <Grid item>
-                        Cadastrar
+                        <a href='http://localhost:3000/cadastro'>Cadastro</a>
                     </Grid>
                 </Grid>
             </Box>
