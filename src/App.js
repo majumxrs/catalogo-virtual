@@ -1,6 +1,6 @@
-import { Avatar, Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import Filme from "./components/Filme";
+import Alimento from "./components/Alimento";
 import MenuResponsivo from "./components/MenuRespinsivo";
 import "./components/global.module.css";
 
@@ -8,41 +8,46 @@ import "./components/global.module.css";
 
 function App() {
 
-    const [ filmes, setFilmes ] = useState();
-    const [ erro, setErro ] = useState();
+    const [ alimento, setAlimento ] = useState();
+    const [  ,setErro ] = useState();
+    
 
     useEffect(() => {
-        fetch( process.env.REACT_APP_BACKEND + "filmes", {
+        const usuario = localStorage.getItem( "usuario" );
+        fetch( process.env.REACT_APP_BACKEND + "produtos/"+ usuario , {
+            method:"GET",
             headers: {
                 'Content-Type': 'application/json'
             }
         } )
         .then( (resposta) => resposta.json() )
-        .then( ( json ) => setFilmes( json ) )
+        .then( ( json ) => setAlimento( json ) )
         .catch( ( erro ) => { setErro( true ) } )
     }, [])
 
     function Excluir( evento, id ) {
         evento.preventDefault();
-        fetch( process.env.REACT_APP_BACKEND + "filmes" , {
+        fetch( process.env.REACT_APP_BACKEND + "produtos" , {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: id
+                id: id,
+                usuario: localStorage.getItem( "usuario" )
             })
         } )
         .then( ( resposta ) => resposta.json() )
         .then( ( json ) => {
-            const novaLista = filmes.filter( (filme ) => filme._id !== id );
-            setFilmes( novaLista );
+            const novaLista = Alimento.filter( (Alimento ) => Alimento._id !== id );
+            setAlimento( novaLista );
         })
         .catch( ( error ) => setErro( true ) )
     }
 
     return (
         <>
+
             <MenuResponsivo />
             <Container sx={{ 
                 display: "flex" ,
@@ -50,17 +55,17 @@ function App() {
                 flexWrap: "wrap",
                 gap: "2rem"
             }}>
-            { filmes && (
-                filmes.map( (filme, index ) => ( 
-                    <Filme
-                        imagem={filme.imagem}
-                        titulo={filme.titulo}
-                        descricao={filme.descricao}
-                        categoria={filme.categoria}
-                        ano={filme.ano}
-                        duracao={filme.duracao}
-                        excluir={ (e) => Excluir( e, filme._id ) }
-                        id={filme._id}
+            { alimento && (
+                alimento.map( (alimento, index ) => ( 
+                    <Alimento
+                        imagem={alimento.imagem}
+                        titulo={alimento.titulo}
+                        descricao={alimento.descricao}
+                        categoria={alimento.categoria}
+                        ano={alimento.ano}
+                        duracao={alimento.duracao}
+                        excluir={ (e) => Excluir( e, alimento._id ) }
+                        id={Alimento._id}
                     />
                 ) )
             ) }

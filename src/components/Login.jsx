@@ -16,10 +16,10 @@ function Login() {
   const [ erro, setErro ] = useState( false );
   const navigate = useNavigate();
 
+  /* */ 
   useEffect( () => {
 
     if( login ) {
-        localStorage.setItem( "usuario" , JSON.stringify( {email: email } ) );
         setEmail( "" );
         setSenha( "" );
         navigate( "/" );
@@ -46,8 +46,10 @@ function Login() {
     .then( ( json ) => {
 
         if( json.user ) {
+            localStorage.setItem( "usuario" , JSON.stringify( json.user._id ) );
             setLogin( true );
         } else {
+            localStorage.removeItem( "usuario" );
             setErro( true );
         }
     } )
@@ -112,6 +114,8 @@ function Login() {
                         <a href='http://localhost:3000/cadastro'>Cadastro</a>
                     </Grid>
                 </Grid>
+                <Button type='submit' variant="contained"  sx={{ background:"#000", marginLeft:"130px"}}><a href='http://localhost:3000/' style={{textDecoration:"none", color:"#fff"}}>Voltar</a></Button>
+                
             </Box>
         </Box>
     </Container>

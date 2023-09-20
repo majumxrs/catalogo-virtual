@@ -13,9 +13,11 @@ function EditarAlimento() {
     const [imagem, setImagem] = useState("");
     const [editar, setEditar] = useState(false);
     const [erro, setErro] = useState(false);
+    const usuario = localStorage.getItem( "usuario" );
+    const [ valor, setValor ] = useState( 0 );
 
     useEffect( () => {
-        fetch( process.env.REACT_APP_BACKEND + "filmes/" + id, {
+        fetch( process.env.REACT_APP_BACKEND + "produtos/" + usuario + "/" + id, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
@@ -24,9 +26,11 @@ function EditarAlimento() {
         .then((resposta) => resposta.json())
         .then((json) => {
             if( !json.status ) {
-                setNome( json.Nome );
-                setComentario( json.Comentario );
+                setNome( json.titulo );
+                setComentario( json.descricao );
                 setImagem( json.imagem );
+                setValor( json.duracao );
+                console.log( json.duracao );
             } else {
                 setErro( "Filme não encontrado" );
             }
@@ -37,17 +41,19 @@ function EditarAlimento() {
     function Editar( evento ) {
         evento.preventDefault();
 
-        fetch( process.env.REACT_APP_BACKEND + "filmes", {
+        fetch( process.env.REACT_APP_BACKEND + "produtos/", {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(
                 {
+                    usuario: localStorage.getItem( "usuario" ),
                     id: id,
-                    nome: Nome,
-                    Comentario: Comentario,
-                    imagem: imagem
+                    titulo: Nome,
+                    descricao: Comentario,
+                    imagem: imagem,
+                    duracao: valor
                 }
             )
         })
@@ -81,7 +87,7 @@ function EditarAlimento() {
             }}>
                 <Typography component="h1" variant='h4' sx={{color:"#ffffff"}}>Editar Alimento</Typography>
                 { erro && ( <Alert severity="warning">{erro}</Alert>)}
-                { editar && ( <Alert severity="success">Filme editado com sucesso</Alert>)}
+                { editar && ( <Alert severity="success">Alimento editado com sucesso</Alert>)}
                 <Box component="form" onSubmit={Editar}>
                     <TextField
                         type="text"
@@ -128,8 +134,9 @@ function EditarAlimento() {
                             color:"#000"
                           }}
                     />
-                    <Estrelas/>
+                    <Estrelas valor={valor} modificador={ (event, valor ) => { setValor( valor ) } }/>
                     <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, mb: 2, background:"#000", borderRadius:"10px"}} >Editar</Button>
+                    <Button type='submit' variant="contained"  sx={{ background:"#000", marginLeft:"210px"}}><a href='http://localhost:3000/' style={{textDecoration:"none", color:"#fff"}}>Voltar</a></Button>
                 </Box>
 
             </Box>

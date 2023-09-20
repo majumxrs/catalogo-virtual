@@ -17,7 +17,7 @@ function Cadastro() {
   function Cadastrar( evento ) {
 
     evento.preventDefault();
-    fetch( process.env.REACT_APP_BACKEND + "users", {
+    fetch( process.env.REACT_APP_BACKEND + "usuarios", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -153,6 +153,7 @@ function Cadastro() {
                     label="Li e concordo com os termos"
                 />
                 <Button type="submit" variant="contained" size="large" fullWidth sx={{ mt:2, mb: 2, borderRadius:"10px", color:"#fff", background:"#000"}}>Enviar</Button>
+                <Button type='submit' variant="contained"  sx={{ background:"#000", marginLeft:"210px"}}><a href='http://localhost:3000/login' style={{textDecoration:"none", color:"#fff"}}>Voltar</a></Button>
             </Box>
         </Box>
     </Container>

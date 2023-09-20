@@ -7,7 +7,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 
 const pages = ['texto1', 'texto2', 'texto3'];
-const settings = ['criar conta', 'Login'];
+const settings = ['criar conta'];
+const settings2 = [ 'Login' ];
 
 
 function MenuResponsivo() {
@@ -133,8 +134,13 @@ function MenuResponsivo() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center"><a href="http://localhost:3000/cadastro" style={{textDecoration:"none", color:"#A800FF"}}>{setting}</a></Typography>
                 </MenuItem>
+              ))}
+              {settings2.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center"><a href=" http://localhost:3000/login" style={{textDecoration:"none", color:"#A800FF"}}>{setting}</a></Typography>
+                  </MenuItem>
               ))}
             </Menu>
           </Box>
